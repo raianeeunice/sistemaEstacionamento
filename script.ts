@@ -33,7 +33,7 @@ interface Veiculo{
             <td>${veiculo.placa}</td>
             <td>${veiculo.entrada}</td>
             <td>
-                <button class="delete" data-placa="${veiculo.placa}"> Sair </button>
+                <button class="delete btn btn-danger" data-placa="${veiculo.placa}"> Encerrar <i class="bi bi-alarm"></i> </button>
             </td>
         `;
 
@@ -53,7 +53,7 @@ interface Veiculo{
         const tempo = calcTempo( new Date().getTime() - new Date(entrada).getTime());
 
         if (
-            !confirm(`O veículo ${nome} permaneceu por ${tempo}. Deseja encerrar?`)
+            !confirm(`O veículo de ${nome} permaneceu por ${tempo}. Deseja encerrar?`)
             )
             return;
 

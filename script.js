@@ -21,7 +21,7 @@
             <td>${veiculo.placa}</td>
             <td>${veiculo.entrada}</td>
             <td>
-                <button class="delete" data-placa="${veiculo.placa}"> Sair </button>
+                <button class="delete btn btn-danger" data-placa="${veiculo.placa}"> Encerrar <i class="bi bi-alarm"></i> </button>
             </td>
         `;
             (_a = row.querySelector(".delete")) === null || _a === void 0 ? void 0 : _a.addEventListener("click", function () {
@@ -36,7 +36,7 @@
         function remover(placa) {
             const { entrada, nome } = ler().find(veiculo => veiculo.placa === placa);
             const tempo = calcTempo(new Date().getTime() - new Date(entrada).getTime());
-            if (!confirm(`O veículo ${nome} permaneceu por ${tempo}. Deseja encerrar?`))
+            if (!confirm(`O veículo de ${nome} permaneceu por ${tempo}. Deseja encerrar?`))
                 return;
             salvar(ler().filter((veiculo) => veiculo.placa !== placa));
             renderizar();
