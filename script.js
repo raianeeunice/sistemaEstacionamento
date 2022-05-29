@@ -13,7 +13,14 @@
         function salvar(veiculos) {
             localStorage.setItem("patio", JSON.stringify(veiculos));
         }
-        function adicionar(veiculo, salva) {
+        function adicionar(veiculo) {
+            const veiculos = ler();
+            if (veiculos.findIndex((v) => v.placa === veiculo.placa) === -1) {
+                salvar([...ler(), veiculo]);
+                adicionarHTML(veiculo);
+            }
+        }
+        function adicionarHTML(veiculo) {
             var _a, _b;
             const row = document.createElement("tr");
             row.innerHTML = `
@@ -28,13 +35,9 @@
                 remover(this.dataset.placa);
             });
             (_b = $("#patio")) === null || _b === void 0 ? void 0 : _b.appendChild(row);
-            if (salva) {
-                salvar([...ler(), veiculo]);
-            }
-            ;
         }
         function remover(placa) {
-            const { entrada, nome } = ler().find(veiculo => veiculo.placa === placa);
+            const { entrada, nome } = ler().find((veiculo) => veiculo.placa === placa);
             const tempo = calcTempo(new Date().getTime() - new Date(entrada).getTime());
             if (!confirm(`O veículo de ${nome} permaneceu por ${tempo}. Deseja encerrar?`))
                 return;
@@ -45,7 +48,7 @@
             $("#patio").innerHTML = "";
             const patio = ler();
             if (patio.length) {
-                patio.forEach((veiculo) => adicionar(veiculo));
+                patio.forEach((veiculo) => adicionarHTML(veiculo));
             }
         }
         return { ler, adicionar, remover, salvar, renderizar };
@@ -59,6 +62,6 @@
             alert("Os campos nome e placa são obrigatórios");
             return;
         }
-        patio().adicionar({ nome, placa, entrada: new Date().toISOString() }, true);
+        patio().adicionar({ nome, placa, entrada: new Date().toISOString() });
     });
 })();
